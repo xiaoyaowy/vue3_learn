@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="https://ajax.aspnetcdn.com/ajax/jquery/jquery-3.4.1.min.js"></script>
+    <script src="./lib/davidshimjs-qrcodejs-04f46c6/qrcode.js"></script>
+</head>
+<body>
+
+<input id="text" type="text" value="http://www.runoob.com" /><br />
+<div id="qrcode"></div>
+<button onclick="makeCode()">aaa</button>
+
+<script>
+
+    var qrcode = new QRCode("qrcode", {
+        text: "http://jindo.dev.naver.com/collie",
+        width: 40,
+        height: 40,
+        value:"gwhhwhwrhwhw",
+        colorDark : "#000000",
+        colorLight : "#ffffff",
+        correctLevel : QRCode.CorrectLevel.H
+    });
+
+    function makeCode () {
+        // var elText = document.getElementById("text");
+        // console.log(elText)
+        var elText = "41166161"
+        // if (!elText.value) {
+        //     alert("Input a text");
+        //     elText.focus();
+        //     return;
+        // }
+        qrcode.makeCode(elText);
+    }
+
+    makeCode();
+
+    $("#text").
+    on("blur", function () {
+        console.log("执行了blur")
+        makeCode();
+    }).
+    on("keydown", function (e) {
+        if (e.keyCode == 13) {
+            console.log("执行了keydown")
+            makeCode();
+        }
+    });
+</script>
+</body>
+</html>

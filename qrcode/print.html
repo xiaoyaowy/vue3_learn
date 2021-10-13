@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <title>局部打印案例</title>
+  <script src="https://ajax.aspnetcdn.com/ajax/jquery/jquery-3.4.1.min.js"></script>
+  <script src="./lib/davidshimjs-qrcodejs-04f46c6/qrcode.js"></script>
+  <script type="text/javascript">
+    function doPrint() {
+      //取得浏览器的userAgent字符串
+      var userAgent = navigator.userAgent.toLowerCase();
+      if (userAgent.indexOf("trident") > -1 || userAgent.indexOf('msie') > -1) {
+        alert("请使用google或者360浏览器打印");
+        return false;
+      }
+
+      // 打印
+      bdhtml = window.document.body.innerHTML;//获取当前页的html代码
+      sprnstr = "<!--startprint-->";//设置打印开始区域
+      eprnstr = "<!--endprint-->";//设置打印结束区域
+      prnhtml = bdhtml.substring(bdhtml.indexOf(sprnstr) + 17); //从开始代码向后取html
+      prnhtml = prnhtml.substring(0, prnhtml.indexOf(eprnstr));//从结束代码向前取html
+      window.print();
+    }
+
+    function getP() {
+      var obj = document.getElementById("a").firstChild.nodeValue;
+      obj.innerHTML= "google coding";
+    }
+  </script>
+</head>
+
+<body>
+
+<input id="text" type="text" style = "display:none"  value="http://www.runoob.com" />
+<!--<button onclick="makeCode()">aaa</button>-->
+
+<link rel="stylesheet" type="text/css" href="test1.css">
+
+<div class="printtest">
+  <div id="content">
+    <label class="label">交货单号：  2003170034</label><br>
+    <label class="label">供应商名称: 黎明液压有限公司</label><br>
+    <label class="label">物料编码：  210000317034</label><br>
+    <label class="label">物料描述：  YWT-300T液位计111111111111111111111111111111111111111111</label><br>
+    <label class="label">规格型号：  HLPV80-06400</label><br>
+    <label class="label">数量：     100 PC</label><br>
+    <label class="label">生产日期：  2020/08/11</label><br>
+    <label class="label">炉批号:    </label><br>
+    <label class="label">版本号：   </label><br>
+    <label class="label">外协工序： </label><br>
+  </div>
+  <div id="qrcode">
+  </div>
+</div>
+
+<script>
+
+  var qrcode = new QRCode("qrcode", {
+    text: "http://jindo.dev.naver.com/collie",
+    width: 120,
+    height: 120,
+    value:"gwhhwhwrhwhw",
+    colorDark : "#000000",
+    colorLight : "#ffffff",
+    correctLevel : QRCode.CorrectLevel.H
+  });
+
+  function makeCode () {
+    // var elText = document.getElementById("text");
+    // console.log(elText)
+    var elText = "8051||8051||8051||8051||8051||8051+8051||8051||8051||8051||8051||8051"
+    // if (!elText.value) {
+    //     alert("Input a text");
+    //     elText.focus();
+    //     return;
+    // }
+    qrcode.makeCode(elText);
+  }
+
+  makeCode();
+
+  $("#text").
+  on("blur", function () {
+    console.log("执行了blur");
+    makeCode();
+  }).
+  on("keydown", function (e) {
+    if (e.keyCode == 13) {
+      console.log("执行了keydown");
+      makeCode();
+    }
+  });
+</script>
+</body>
+</html>
